@@ -15,7 +15,13 @@ class TestStack(Stack):
         # create the lambda stack
         lambda_stack = LambdaStack(app, construct_id="LambdaStack")
 
-        # grant data access to the role used by the lambda...
+        # we want to grant the lambda role the right to assume the s3 access role.
+        # the obvious role method, grant_assume_role(), doesn't actually do anything except
+        # adding a policy statement in the external role policy (i.e the role to which we want to give the permission)
+        # Instead, what we need is to modify the s3_access_role trust relationship. The below code is achieving this. 
+        # note that you do not need to to run `grant_assume_role` in the stack where the lambda role is created.
+        # the below code is the only thing you need. 
+        
         lambda_role = aws_iam.Role.from_role_name(self, "python-lambda-role", "python-lambda-role")
         s3_access_role.assume_role_policy.add_statements(
             aws_iam.PolicyStatement(
