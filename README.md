@@ -4,7 +4,7 @@ example CDK construct code where we grant to an imported, external role the righ
 
 requirements : 
 
-`- `docker` is running.
+- `docker` is running.
 - the AWS CDK (the CLI) is installed.
 - your AWS credentials are configured.
 
