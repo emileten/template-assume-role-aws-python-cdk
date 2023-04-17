@@ -32,7 +32,3 @@ class LambdaStack(Stack):
             role=lambda_role
         )
         
-        # inner side of the trust relationship
-        data_access_role.grant_assume_role(lambda_role)
-        
-        
